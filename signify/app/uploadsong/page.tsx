@@ -1,8 +1,8 @@
 "use client";
-
+import styles from "./uploadsongs.module.css";
 import { useState } from "react";
-import { useWriteContract,useAccount } from 'wagmi'
-import {contractaddress,abi} from '../../lib/SongContract'
+import { useWriteContract, useAccount } from 'wagmi'
+import { contractaddress, abi } from '../../lib/SongContract'
 
 export default function Home() {
   const [songFile, setSongFile] = useState<File | null>(null);
@@ -16,6 +16,7 @@ export default function Home() {
   const [uploading, setUploading] = useState(false);
   const { writeContract } = useWriteContract()
   const { address, isConnected } = useAccount();
+
   const uploadFile = async () => {
     try {
       if (!songFile || !coverImage || !songName || !artist) {
@@ -30,7 +31,7 @@ export default function Home() {
       data.set("songName", songName);
       data.set("artist", artist);
       data.set("description", description);
-      data.set("artistaddress",address!);
+      data.set("artistaddress", address!);
 
       const uploadRequest = await fetch("/api/upload", {
         method: "POST",
@@ -42,15 +43,15 @@ export default function Home() {
       setCoverCid(response.coverCid);
       setMetadataCid(response.metadataCid);
       setUploading(false);
-      
-      writeContract({ 
+
+      writeContract({
         abi,
         address: contractaddress,
         functionName: 'uploadSong',
         args: [
           response.metadataCid
         ],
-     })
+      })
 
     } catch (e) {
       console.log(e);
@@ -62,23 +63,32 @@ export default function Home() {
   const IPFS_GATEWAY = "https://tan-adjacent-mammal-701.mypinata.cloud/ipfs/";
 
   return (
-    <main className="w-full min-h-screen m-auto flex flex-col justify-center items-center gap-4">
-      <input type="file" accept="audio/*" onChange={(e) => setSongFile(e.target?.files?.[0] || null)} />
-      <input type="file" accept="image/*" onChange={(e) => setCoverImage(e.target?.files?.[0] || null)} />
-      <input type="text" placeholder="Song Name" value={songName} onChange={(e) => setSongName(e.target.value)} />
-      <input type="text" placeholder="Artist Name" value={artist} onChange={(e) => setArtist(e.target.value)} />
-      <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-      <button type="button" disabled={uploading} onClick={uploadFile}>
-        {uploading ? "Uploading..." : "Upload"}
-      </button>
+    <main className={styles.uploadContainer}>
+     <h1 className={styles.uploadHeading}>Upload Song</h1>
+      <div className={styles.uploadForm}>
+        <label className={styles.fileInput}>
+          Select Song File
+          <input type="file" accept="audio/*" style={{ display: 'none' }} onChange={(e) => setSongFile(e.target?.files?.[0] || null)} />
+        </label>
+        <label className={styles.fileInput}>
+          Select Cover Image
+          <input type="file" accept="image/*" style={{ display: 'none' }} onChange={(e) => setCoverImage(e.target?.files?.[0] || null)} />
+        </label>
+        <input type="text" placeholder="Song Name" className={styles.inputField} value={songName} onChange={(e) => setSongName(e.target.value)} />
+        <input type="text" placeholder="Artist Name" className={styles.inputField} value={artist} onChange={(e) => setArtist(e.target.value)} />
+        <textarea placeholder="Description" className={styles.textarea} value={description} onChange={(e) => setDescription(e.target.value)} />
+        <button type="button" className={styles.uploadButton} disabled={uploading} onClick={uploadFile}>
+          {uploading ? "Uploading..." : "Upload"}
+        </button>
+      </div>
       {songCid && (
-        <p>Song CID: <a href={`${IPFS_GATEWAY}${songCid}`} target="_blank">{songCid}</a></p>
+        <p>Song CID: <a href={`${IPFS_GATEWAY}${songCid}`} target="_blank" rel="noopener noreferrer">{songCid}</a></p>
       )}
       {coverCid && (
-        <p>Cover CID: <a href={`${IPFS_GATEWAY}${coverCid}`} target="_blank">{coverCid}</a></p>
+        <p>Cover CID: <a href={`${IPFS_GATEWAY}${coverCid}`} target="_blank" rel="noopener noreferrer">{coverCid}</a></p>
       )}
       {metadataCid && (
-        <p>Metadata CID: <a href={`${IPFS_GATEWAY}${metadataCid}`} target="_blank">{metadataCid}</a></p>
+        <p>Metadata CID: <a href={`${IPFS_GATEWAY}${metadataCid}`} target="_blank" rel="noopener noreferrer">{metadataCid}</a></p>
       )}
     </main>
   );

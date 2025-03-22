@@ -1,0 +1,72 @@
+.uploadContainer {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f5f1e8;
+    border-radius: 20px;
+    border: 3px solid #000;
+    text-align: center;
+    box-shadow: 6px 6px 0px black;
+  }
+  
+  .uploadHeading { /* Styling for the "Upload Song" heading */
+    font-size: 2.5em; /* Make it bigger */
+    font-weight: bold; /* Make it bolder */
+    color: #0070f3; /* Change the color (example: blue) */
+    margin-bottom: 20px; /* Add some space below the heading */
+  }
+  
+  .uploadForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .fileInput {
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+    border: 3px solid black;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 4px 4px 0px black;
+  }
+  
+  .fileInput:hover {
+    background-color: #ddd;
+  }
+  
+  .inputField,
+  .textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    border: 3px solid black;
+    font-size: 18px;
+    background-color: white;
+    box-shadow: 4px 4px 0px black;
+  }
+  
+  .textarea {
+    resize: none;
+    height: 120px;
+  }
+  
+  .uploadButton {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    border: 3px solid black;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 4px 4px 0px black;
+  }
+  
+  .uploadButton:hover {
+    background-color: gray;
+  }
