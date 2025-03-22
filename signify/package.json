@@ -9,13 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "dotenv": "^16.4.7",
+    "formidable": "^3.5.2",
     "next": "15.2.3",
+    "pinata": "^2.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "wagmi": "^2.14.15"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/formidable": "^3.4.5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
