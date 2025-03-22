@@ -69,9 +69,9 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <div className={styles.leftPanel}>
-        <h1 className={styles.heading}>Upload Your Music</h1>
+        <h1 className={`${styles.heading} ${styles.typewriter}`}>Upload Your Music</h1>
         <div className={styles.descriptionContent}>
-          <h2 className={`${styles.descriptionHeading} ${styles.typewriter}`}>Why Upload Your Song?</h2>
+          <h2 className={styles.descriptionHeading}>Why Upload Your Song?</h2>
           <p className={styles.descriptionText}>
             Uploading your song allows listeners to discover and engage with your music. If they enjoy it, they can upvote it, increasing its visibility and pushing it to the Discover page, where even more people can find your track. This exposure can attract record labels interested in signing new talent. Thanks to Web3 transparency, any record deals made through the platform are secure and scam-free, ensuring fair opportunities for independent artists. This creates the perfect environment for indie musicians to grow their audience while collaborating with ethical record labels that truly support the indie scene.
           </p>

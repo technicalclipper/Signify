@@ -1,7 +1,7 @@
 .container {
     display: flex;
     width: 96vw;
-    height: 96vh;
+    height: 85vh;
     margin: 2vh 2vw;
     gap: 20px;
   }
@@ -27,10 +27,10 @@
   }
   
   .heading {
-    font-size: 2.5em;
+    font-size: 3.3em;
     font-weight: bold;
     color: #cdb53e;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
   
   .descriptionContent {
@@ -38,25 +38,30 @@
   }
   
   .descriptionHeading {
-    font-size: 1.8em;
+    font-size: 2em;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-top: 12px;
+    
+    
   }
   
   .descriptionText {
     font-size: 1.4em;
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-top: 20px;
+    
   }
   
   .uploadForm {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
+    
   }
   
   .fileInput {
     background-color: white;
+    font-size: 1.5rem;
     padding: 15px;
     border-radius: 15px;
     border: 3px solid black;
@@ -65,6 +70,7 @@
     text-align: center;
     transition: 0.3s;
     box-shadow: 4px 4px 0px black;
+    height: 70px;
   }
   
   .fileInput:hover {
@@ -81,7 +87,7 @@
     padding: 12px;
     border-radius: 15px;
     border: 3px solid black;
-    font-size: 18px;
+    font-size: 22px;
     background-color: white;
     box-shadow: 4px 4px 0px black;
   }
@@ -128,7 +134,7 @@
       width: 0;
     }
     to {
-      width: 17ch; /* Adjust based on text length */
+      width: 13.2ch; /* Adjust based on text length */
     }
   }
   

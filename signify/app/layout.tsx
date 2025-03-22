@@ -1,7 +1,7 @@
 "use client";
 import { Oswald, Londrina_Solid } from "next/font/google"; // Importing Bangers font
 import "./globals.css";
-
+import Navbar from "./components/navbar";
 import { config } from "../lib/wagmiConfig";
 import { WagmiProvider } from 'wagmi'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -31,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className={`${londrina.className} `}>
+        <Navbar/>
       
       <WagmiProvider config={config}> 
         <QueryClientProvider client={queryClient}> 
