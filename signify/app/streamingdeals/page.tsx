@@ -38,57 +38,68 @@ export default function StreamingDeals() {
     if (!deals || deals.length === 0) return <p>No accepted deals available.</p>;
 
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">Accepted Deals</h2>
-            <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
-                <thead className="bg-gray-100">
-                    <tr>
-                        <th className="p-2 border">Deal ID</th>
-                        <th className="p-2 border">Song ID</th>
-                        <th className="p-2 border">Record Label</th>
-                        <th className="p-2 border">Ownership %</th>
-                        <th className="p-2 border">Revenue Split %</th>
-                        <th className="p-2 border">Upfront Payment (ETH)</th>
-                        <th className="p-2 border">Enter ETH</th>
-                        <th className="p-2 border">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {deals.map((deal, index) => (
-                        <tr key={index} className="border-t">
-                            <td className="p-2 border">{deal.dealId.toString()}</td>
-                            <td className="p-2 border">{deal.songId.toString()}</td>
-                            <td className="p-2 border">{deal.recordLabel}</td>
-                            <td className="p-2 border">{deal.ownership.toString()}%</td>
-                            <td className="p-2 border">{deal.revenueSplit.toString()}%</td>
-                            <td className="p-2 border">{formatEther(deal.upfrontPayment)} ETH</td>
-                            <td className="p-2 border">
-                                <input
-                                    type="number"
-                                    min="0"
-                                    step="0.01"
-                                    value={ethAmounts[deal.dealId] || ""}
-                                    onChange={(e) => setEthAmounts({
-                                        ...ethAmounts,
-                                        [deal.dealId]: e.target.value,
-                                    })}
-                                    className="border rounded p-1 w-24"
-                                    placeholder="ETH"
-                                />
-                            </td>
-                            <td className="p-2 border">
-                                <button
-                                    onClick={() => handlePayForLicense(deal.dealId)}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-                                >
-                                    Pay for License
-                                </button>
-                            </td>
+        <main className="w-screen h-screen p-8 flex justify-start">
+            {/* Full-Screen Retro Container */}
+            <div className="w-full h-full bg-[#fff8e1] border-[5px] border-black shadow-[7px_7px_0px_#000] rounded-lg p-6">
+                <h2 className="text-4xl font-bold text-left mb-6 font-mono text-[#2d1e2f] flex items-center gap-3">
+                    💰 Accepted Deals
+                </h2>
+                <p className="text-xl px-3 mb-2">Deals you have accepted show up here!</p>
+
+                {/* Styled Table */}
+                <table className="w-full border-collapse border border-black rounded-lg text-sm">
+                    <thead className="bg-[#2d1e2f] text-white text-base font-normal">
+                        <tr className="text-left">
+                            <th className="px-4 py-3 border border-black w-16">Deal ID</th>
+                            <th className="px-4 py-3 border border-black w-20">Song ID</th>
+                            <th className="px-4 py-3 border border-black w-64">Record Label</th>
+                            <th className="px-4 py-3 border border-black w-24">Ownership %</th>
+                            <th className="px-4 py-3 border border-black w-28">Revenue Split %</th>
+                            <th className="px-4 py-3 border border-black w-40">Upfront Payment (ETH)</th>
+                            <th className="px-4 py-3 border border-black w-28">Enter ETH</th>
+                            <th className="px-4 py-3 border border-black w-36">Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {deals.map((deal, index) => (
+                            <tr key={index} className="border-t text-left">
+                                <td className="px-4 py-3 border border-black">{deal.dealId.toString()}</td>
+                                <td className="px-4 py-3 border border-black">{deal.songId.toString()}</td>
+                                <td className="px-4 py-3 border border-black truncate">{deal.recordLabel}</td>
+                                <td className="px-4 py-3 border border-black">{deal.ownership.toString()}%</td>
+                                <td className="px-4 py-3 border border-black">{deal.revenueSplit.toString()}%</td>
+                                <td className="px-4 py-3 border border-black">{formatEther(deal.upfrontPayment)} ETH</td>
+                                <td className="px-4 py-3 border border-black">
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        value={ethAmounts[deal.dealId] || ""}
+                                        onChange={(e) =>
+                                            setEthAmounts({
+                                                ...ethAmounts,
+                                                [deal.dealId]: e.target.value,
+                                            })
+                                        }
+                                        className="border border-black rounded p-2 w-24 bg-[#fff8e1] text-black shadow-inner"
+                                        placeholder="ETH"
+                                    />
+                                </td>
+                                <td className="px-4 py-3 border border-black">
+                                    <button
+                                        onClick={() => handlePayForLicense(deal.dealId)}
+                                        className="bg-[#ffeb99] text-black px-4 py-2 rounded shadow-md hover:bg-black hover:text-white transition duration-200"
+
+                                    >
+                                        Pay for License
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </main>
     );
 }
 
