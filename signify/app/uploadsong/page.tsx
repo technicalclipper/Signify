@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useWriteContract,useAccount } from 'wagmi'
+import {contractaddress,abi} from '../../lib/SongContract'
 
 export default function Home() {
   const [songFile, setSongFile] = useState<File | null>(null);
@@ -12,7 +14,8 @@ export default function Home() {
   const [coverCid, setCoverCid] = useState("");
   const [metadataCid, setMetadataCid] = useState("");
   const [uploading, setUploading] = useState(false);
-
+  const { writeContract } = useWriteContract()
+  const { address, isConnected } = useAccount();
   const uploadFile = async () => {
     try {
       if (!songFile || !coverImage || !songName || !artist) {
@@ -27,6 +30,7 @@ export default function Home() {
       data.set("songName", songName);
       data.set("artist", artist);
       data.set("description", description);
+      data.set("artistaddress",address!);
 
       const uploadRequest = await fetch("/api/upload", {
         method: "POST",
@@ -38,6 +42,16 @@ export default function Home() {
       setCoverCid(response.coverCid);
       setMetadataCid(response.metadataCid);
       setUploading(false);
+      
+      writeContract({ 
+        abi,
+        address: contractaddress,
+        functionName: 'uploadSong',
+        args: [
+          response.metadataCid
+        ],
+     })
+
     } catch (e) {
       console.log(e);
       setUploading(false);

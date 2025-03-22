@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
     const songName = data.get("songName") as string;
     const artist = data.get("artist") as string;
     const description = data.get("description") as string;
+    const artistaddress= data.get("artistaddress") as string;
 
     if (!songFile || !coverImage || !songName || !artist) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
     const coverUrl = `${IPFS_GATEWAY}${coverCid}`;
 
     // Upload song metadata as JSON
-    const metadata = { songName, artist, description, songCid, coverCid };
+    const metadata = { songName, artist, description, songCid, coverCid,artistaddress };
     const metadataBlob = new Blob([JSON.stringify(metadata)], { type: "application/json" });
     const metadataFile = new File([metadataBlob], "metadata.json");
 

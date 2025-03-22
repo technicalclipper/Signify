@@ -1,4 +1,4 @@
-export const address="0x573a6e63f6a18Fc444A1A558c1AD91c4519D34B3";
+export const contractaddress="0x4fb7971db21445B20a81d992c584D960d7Fe15cC";
 export const abi=[
 	{
 		"inputs": [
@@ -698,6 +698,39 @@ export const abi=[
 	},
 	{
 		"inputs": [],
+		"name": "getSongs",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			},
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getTopSongs",
 		"outputs": [
 			{
@@ -900,4 +933,4 @@ export const abi=[
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
+]
