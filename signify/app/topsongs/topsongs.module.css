@@ -1,0 +1,139 @@
+/* Full-page container */
+.pageContainer {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Card wrapper */
+  .cardContainer {
+    width: 100%;
+    max-width: 1200px;
+    background: #f5f0e6;
+    border: 4px solid black;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 5px 5px 0px black;
+  }
+  
+  /* Title */
+  .title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  /* Songs grid */
+  .songsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Individual song card */
+  .songCard {
+    background: #f5f0e6;
+    border: 3px solid black;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 4px 4px 0px black;
+    text-align: center;
+  }
+  
+  /* Song cover */
+  .songImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid black;
+  }
+  
+  /* Song details */
+  .songDetails {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  /* Buttons */
+  .voteButton,
+  .dealButton {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 2px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .voteButton {
+    background-color: #ffeb99;
+    color: rgb(0, 0, 0);
+  }
+  
+  .dealButton {
+    background-color: #000000;
+    color: white;
+  }
+  
+  .audio {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+    border: 2px solid black;
+    border-radius: 0px; /* Remove rounded corners */
+  }
+  
+  .audio::-webkit-media-controls-panel {
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 0px; /* Remove rounded corners from controls */
+  }
+  
+  .audio::-webkit-media-controls-play-button,
+  .audio::-webkit-media-controls-volume-slider,
+  .audio::-webkit-media-controls-current-time-display,
+  .audio::-webkit-media-controls-time-remaining-display,
+  audio::-webkit-media-controls-mute-button,
+  audio::-webkit-media-controls-timeline,
+  audio::-webkit-media-controls-volume-slider,
+  audio::-webkit-media-controls-timeline-container {
+    color: #000000;
+  }
+  
+  .audio::-webkit-media-controls-timeline {
+    width: 80%;
+  }
+  
+  .audio::-webkit-media-controls-timeline-thumb {
+    background: #007bff;
+    border-radius: 5px;
+  }
+  
+  .audio::-webkit-media-controls-volume-slider-thumb {
+    background: #007bff;
+    border-radius: 5px;
+  }
+  
+  .audio::-webkit-media-controls-play-button {
+    -webkit-appearance: media-play-button;
+    color: #007bff;
+  }
+  
+  .audio::-webkit-media-controls-mute-button {
+    -webkit-appearance: media-mute-button;
+    color: #007bff;
+  }
+  
+  .audio::-webkit-media-controls-volume-slider {
+    -webkit-appearance: media-volume-slider;
+  }
+  
+  .audio::-webkit-media-controls-current-time-display,
+  .audio::-webkit-media-controls-time-remaining-display {
+    font-family: monospace;
+    font-size: 14px;
+  }
