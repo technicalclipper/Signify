@@ -21,6 +21,15 @@ contract MusicPlatform is ERC721URIStorage, Ownable {
         uint upfrontPayment;
         bool accepted;
     }
+    struct DealInfo {
+    uint dealId;
+    uint songId;
+    address recordLabel;
+    uint ownership;
+    uint revenueSplit;
+    uint upfrontPayment;
+    bool accepted;
+}
 
     mapping(uint => Song) public songs;
     mapping(uint => Deal) public deals;
@@ -44,30 +53,29 @@ contract MusicPlatform is ERC721URIStorage, Ownable {
     }
 
     function getSongs() public view returns (
-    uint[] memory, 
-    string[] memory, 
-    address[] memory, 
-    uint[] memory, 
-    uint[] memory
-) {
-    uint[] memory ids = new uint[](songCount);
-    string[] memory ipfsHashes = new string[](songCount);
-    address[] memory artists = new address[](songCount);
-    uint[] memory votes = new uint[](songCount);
-    uint[] memory funds = new uint[](songCount);
+        uint[] memory, 
+        string[] memory, 
+        address[] memory, 
+        uint[] memory, 
+        uint[] memory
+    ) {
+        uint[] memory ids = new uint[](songCount);
+        string[] memory ipfsHashes = new string[](songCount);
+        address[] memory artists = new address[](songCount);
+        uint[] memory votes = new uint[](songCount);
+        uint[] memory funds = new uint[](songCount);
 
-    for (uint i = 1; i <= songCount; i++) {
-        Song storage song = songs[i];
-        ids[i - 1] = song.id;
-        ipfsHashes[i - 1] = song.ipfsHash;
-        artists[i - 1] = song.artist;
-        votes[i - 1] = song.votes;
-        funds[i - 1] = song.funds;
+        for (uint i = 1; i <= songCount; i++) {
+            Song storage song = songs[i];
+            ids[i - 1] = song.id;
+            ipfsHashes[i - 1] = song.ipfsHash;
+            artists[i - 1] = song.artist;
+            votes[i - 1] = song.votes;
+            funds[i - 1] = song.funds;
+        }
+
+        return (ids, ipfsHashes, artists, votes, funds);
     }
-
-    return (ids, ipfsHashes, artists, votes, funds);
-}
-
 
     function voteSong(uint _songId) public payable {
         require(msg.value > 0, "Must send ETH to vote");
@@ -82,14 +90,13 @@ contract MusicPlatform is ERC721URIStorage, Ownable {
         uint _songId,
         address _recordLabel,
         uint _ownership,
-        uint _revenueSplit,
-        uint _upfrontPayment
+        uint _revenueSplit
     ) public payable {
-        require(msg.value == _upfrontPayment, "Send upfront payment");
+        require(msg.value >0, "Send upfront payment");
         require(songs[_songId].id != 0, "Song does not exist");
 
         dealCount++;
-        deals[dealCount] = Deal(_songId, _recordLabel, _ownership, _revenueSplit, _upfrontPayment, false);
+        deals[dealCount] = Deal(_songId, _recordLabel, _ownership, _revenueSplit, msg.value, false);
         emit DealProposed(dealCount, _songId, _recordLabel);
     }
 
@@ -130,4 +137,70 @@ contract MusicPlatform is ERC721URIStorage, Ownable {
         }
         return topSongs;
     }
+
+    // Function to get all proposed deals for an artist's songs
+   function getDealsForArtist(address _artist) public view returns (DealInfo[] memory) {
+    uint count = 0;
+
+    // Step 1: Count relevant deals
+    for (uint i = 1; i <= dealCount; i++) {
+        if (songs[deals[i].songId].artist == _artist) {
+            count++;
+        }
+    }
+
+    // Step 2: Allocate memory for return values
+    DealInfo[] memory artistDeals = new DealInfo[](count);
+    uint index = 0;
+
+    for (uint i = 1; i <= dealCount; i++) {
+        if (songs[deals[i].songId].artist == _artist) {
+            artistDeals[index] = DealInfo({
+                dealId: i,
+                songId: deals[i].songId,
+                recordLabel: deals[i].recordLabel,
+                ownership: deals[i].ownership,
+                revenueSplit: deals[i].revenueSplit,
+                upfrontPayment: deals[i].upfrontPayment,
+                accepted: deals[i].accepted
+            });
+            index++;
+        }
+    }
+
+    return artistDeals;
+}
+
+function getAcceptedDeals() public view returns (DealInfo[] memory) {
+    uint count = 0;
+
+    for (uint i = 1; i <= dealCount; i++) {
+        if (deals[i].accepted) {
+            count++;
+        }
+    }
+
+    DealInfo[] memory acceptedDeals = new DealInfo[](count);
+    uint index = 0;
+
+    for (uint i = 1; i <= dealCount; i++) {
+        if (deals[i].accepted) {
+            acceptedDeals[index] = DealInfo({
+                dealId: i,
+                songId: deals[i].songId,
+                recordLabel: deals[i].recordLabel,
+                ownership: deals[i].ownership,
+                revenueSplit: deals[i].revenueSplit,
+                upfrontPayment: deals[i].upfrontPayment,
+                accepted: deals[i].accepted
+            });
+            index++;
+        }
+    }
+
+    return acceptedDeals;
+}
+
+
+
 }
