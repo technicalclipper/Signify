@@ -1,19 +1,52 @@
-.uploadContainer {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #f5f1e8;
-    border-radius: 20px;
-    border: 3px solid #000;
-    text-align: center;
-    box-shadow: 6px 6px 0px black;
+.container {
+    display: flex;
+    width: 96vw;
+    height: 96vh;
+    margin: 2vh 2vw;
+    gap: 20px;
   }
   
-  .uploadHeading { /* Styling for the "Upload Song" heading */
-    font-size: 2.5em; /* Make it bigger */
-    font-weight: bold; /* Make it bolder */
-    color: #0070f3; /* Change the color (example: blue) */
-    margin-bottom: 20px; /* Add some space below the heading */
+  .leftPanel, .rightPanel {
+    box-sizing: border-box;
+    padding: 20px;
+    border: 4px solid black;
+    border-radius: 20px;
+    background-color: #f5f1e8;
+    overflow-y: auto;
+  }
+  
+  .leftPanel {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .rightPanel {
+    width: 60%;
+  }
+  
+  .heading {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #cdb53e;
+    margin-bottom: 20px;
+  }
+  
+  .descriptionContent {
+    flex-grow: 1;
+  }
+  
+  .descriptionHeading {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .descriptionText {
+    font-size: 1.4em;
+    line-height: 1.6;
+    margin-bottom: 15px;
   }
   
   .uploadForm {
@@ -36,6 +69,10 @@
   
   .fileInput:hover {
     background-color: #ddd;
+  }
+  
+  .fileUploaded {
+    background-color: lightgreen;
   }
   
   .inputField,
@@ -70,3 +107,38 @@
   .uploadButton:hover {
     background-color: gray;
   }
+  
+  .uploadSuccess {
+    background-color: lightgreen;
+  }
+  .typewriter {
+    
+   
+    display: inline-block;
+    overflow: hidden;
+    border-right: 3px solid black;
+    white-space: nowrap;
+    width: 0;
+    animation: typing 1.3s steps(30, end) forwards, blink 0.6s steps(2, start) 1.6s forwards;
+  }
+  
+  /* Typing animation */
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 17ch; /* Adjust based on text length */
+    }
+  }
+  
+  /* Blinking cursor, disappears after typing ends */
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+    100% {
+      border-color: transparent;
+    }
+  }
+  
