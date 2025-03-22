@@ -31,10 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className={`${londrina.className} `}>
-        <Navbar/>
+        
       
       <WagmiProvider config={config}> 
         <QueryClientProvider client={queryClient}> 
+          <Navbar/>
           {children} 
         </QueryClientProvider> 
       </WagmiProvider>

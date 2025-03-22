@@ -42,7 +42,7 @@ export default function StreamingDeals() {
             {/* Full-Screen Retro Container */}
             <div className="w-full h-full bg-[#fff8e1] border-[5px] border-black shadow-[7px_7px_0px_#000] rounded-lg p-6">
                 <h2 className="text-4xl font-bold text-left mb-6 font-mono text-[#2d1e2f] flex items-center gap-3">
-                    💰 Accepted Deals
+                    💰Artists Accepted Deals
                 </h2>
                 <p className="text-xl px-3 mb-2">Deals you have accepted show up here!</p>
 
