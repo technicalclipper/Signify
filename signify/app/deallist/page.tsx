@@ -3,10 +3,10 @@ import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import { formatEther } from "viem";
 import { contractaddress, abi } from "../../lib/SongContract";
 import { useState } from "react";
+import axios from "axios";
 
 export default function DealsList() {
     const { address } = useAccount(); // Get connected wallet address
-    const [tokenURI, setTokenURI] = useState(""); // Store token URI input
 
     // Fetch deals for the artist
     const { data: deals, isLoading, error } = useReadContract({
@@ -19,25 +19,52 @@ export default function DealsList() {
     // Accept deal function
     const { writeContract, isPending } = useWriteContract();
 
-    const acceptDeal = async (dealId) => {
-        if (!tokenURI) {
-            alert("Please enter a token URI before accepting the deal.");
-            return;
-        }
-
+    const acceptDeal = async (dealId, deal) => {
         try {
+            if (!address) {
+                alert("Wallet not connected.");
+                return;
+            }
+    
+            const metadata = {
+                name: `Music Deal #${dealId}`,
+                description: `Deal between ${deal.recordLabel} and artist. ownership:${deal.ownership} revenueSplit:${deal.revenueSplit} upfrontPayment:${deal.upfrontPayment}`,    
+                attributes: {
+                    dealId: deal.dealId.toString(),
+                    songId: deal.songId.toString(),
+                    recordLabel: deal.recordLabel,
+                    ownership: deal.ownership.toString(),
+                    revenueSplit: deal.revenueSplit.toString(),
+                    upfrontPayment: formatEther(deal.upfrontPayment) + " ETH",
+                    acceptedBy: address,
+                },
+            };
+    
+            // Step 1: Call Next.js API to upload metadata
+            const uploadResponse = await fetch("/api/uploadmetadata", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(metadata),
+            });
+    
+            const { url: tokenURI } = await uploadResponse.json();
+            if (!tokenURI) throw new Error("Failed to upload metadata to IPFS.");
+    
+            // Step 2: Call smart contract function
             await writeContract({
                 address: contractaddress,
                 abi: abi,
                 functionName: "acceptDeal",
-                args: [dealId, tokenURI], // Send dealId and tokenURI
+                args: [dealId, tokenURI],
             });
-
-            alert("Deal accepted! NFT minted.");
+    
+            alert("Deal accepted! Metadata stored on IPFS.");
         } catch (err) {
             alert(`Error accepting deal: ${err.message}`);
         }
     };
+    
+    
 
     if (isLoading) return <p>Loading deals...</p>;
     if (error) return <p>Error fetching deals: {error.message}</p>;
@@ -71,22 +98,13 @@ export default function DealsList() {
                             <td className="p-2 border">{deal.accepted ? "✅ Yes" : "❌ No"}</td>
                             <td className="p-2 border">
                                 {!deal.accepted ? (
-                                    <div>
-                                        <input
-                                            type="text"
-                                            placeholder="Enter Token URI"
-                                            value={tokenURI}
-                                            onChange={(e) => setTokenURI(e.target.value)}
-                                            className="border p-1 rounded text-sm mb-2"
-                                        />
-                                        <button
-                                            onClick={() => acceptDeal(deal.dealId)}
-                                            className="bg-green-500 text-white px-2 py-1 rounded text-sm"
-                                            disabled={isPending}
-                                        >
-                                            {isPending ? "Processing..." : "Accept Deal"}
-                                        </button>
-                                    </div>
+                                    <button
+                                        onClick={() => acceptDeal(deal.dealId, deal)}
+                                        className="bg-green-500 text-white px-2 py-1 rounded text-sm"
+                                        disabled={isPending}
+                                    >
+                                        {isPending ? "Processing..." : "Accept Deal"}
+                                    </button>
                                 ) : (
                                     "✅ Accepted"
                                 )}
@@ -98,3 +116,4 @@ export default function DealsList() {
         </div>
     );
 }
+
