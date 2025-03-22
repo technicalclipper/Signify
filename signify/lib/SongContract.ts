@@ -1,4 +1,4 @@
-export const contractaddress="0x4fb7971db21445B20a81d992c584D960d7Fe15cC";
+export const contractaddress="0xE57e046E72D5efb1Aa1DD29dA185b01Fe00bf5Ac";
 export const abi=[
 	{
 		"inputs": [
@@ -376,11 +376,6 @@ export const abi=[
 				"internalType": "uint256",
 				"name": "_revenueSplit",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_upfrontPayment",
-				"type": "uint256"
 			}
 		],
 		"name": "proposeDeal",
@@ -691,6 +686,62 @@ export const abi=[
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_artist",
+				"type": "address"
+			}
+		],
+		"name": "getDealsForArtist",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "dealId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "songId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "recordLabel",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "ownership",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "revenueSplit",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "upfrontPayment",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "accepted",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct MusicPlatform.DealInfo[]",
+				"name": "",
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
