@@ -170,7 +170,7 @@ export default function TopSongsPage() {
           <div className="bg-white p-6 rounded-md w-96">
             <h2 className="text-lg font-semibold">Fund & Vote</h2>
             <input type="number" value={fundingAmount} onChange={(e) => setFundingAmount(e.target.value)} className="border p-2 w-full mt-2" placeholder="Enter ETH amount" />
-            <button onClick={handleVote} className="bg-blue-600 text-white px-4 py-2 mt-3 rounded-md hover:bg-blue-700 w-full">Submit</button>
+            <button onClick={handleVote} className="bg-black text-white px-4 py-2 mt-3 rounded-md hover:bg-gray-800 w-full">Submit</button>
             <button onClick={closeModal} className="text-red-600 mt-2">Close</button>
           </div>
         </div>
@@ -184,7 +184,7 @@ export default function TopSongsPage() {
             <input type="text" placeholder="Ownership %" value={dealDetails.ownership} onChange={(e) => setDealDetails({ ...dealDetails, ownership: e.target.value })} className="border p-2 w-full mt-2" />
             <input type="text" placeholder="Revenue Split %" value={dealDetails.revenueSplit} onChange={(e) => setDealDetails({ ...dealDetails, revenueSplit: e.target.value })} className="border p-2 w-full mt-2" />
             <input type="number" placeholder="Upfront Payment (ETH)" value={dealDetails.upfrontPayment} onChange={(e) => setDealDetails({ ...dealDetails, upfrontPayment: e.target.value })} className="border p-2 w-full mt-2" />
-            <button onClick={handleProposeDeal} className="bg-green-600 text-white px-4 py-2 mt-3 rounded-md hover:bg-green-700 w-full">Submit</button>
+            <button onClick={handleProposeDeal} className="bg-black text-white px-4 py-2 mt-3 rounded-md hover:bg-gray-800 w-full">Submit</button>
             <button onClick={closeDealModal} className="text-red-600 mt-2">Close</button>
           </div>
         </div>
